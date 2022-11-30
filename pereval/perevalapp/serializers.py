@@ -1,14 +1,15 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
+from .models import Pereval
 
 
-class UserSerializer(serializers.HyperlinkedModelSerializer):
+class PerevalListSerializer(serializers.ModelSerializer):
     class Meta:
-        model = User
-        fields = ['url', 'username', 'email', 'groups']
+        model = Pereval
+        fields = ('id', 'title', 'user', 'coord_id')
 
 
-class GroupSerializer(serializers.HyperlinkedModelSerializer):
+class PerevalDetailSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Group
-        fields = ['url', 'name']
+        model = Pereval
+        fields = '__all__'

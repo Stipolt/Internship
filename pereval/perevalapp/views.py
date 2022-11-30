@@ -1,23 +1,18 @@
 from django.shortcuts import render
-from django.contrib.auth.models import User, Group
-from rest_framework import viewsets
-from rest_framework import permissions
-from .serializers import UserSerializer, GroupSerializer
+from rest_framework import generics
+from .serializers import PerevalDetailSerializer, PerevalListSerializer
+from .models import Pereval
 
 
-class UserViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = User.objects.all().order_by('-date_joined')
-    serializer_class = UserSerializer
-    permission_classes = [permissions.IsAuthenticated]
+class PerevalCreateView(generics.CreateAPIView):
+    serializer_class = PerevalDetailSerializer
 
 
-class GroupViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows groups to be viewed or edited.
-    """
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-    permission_classes = [permissions.IsAuthenticated]
+class PerevalListView(generics.ListAPIView):
+    serializer_class = PerevalDetailSerializer
+    queryset = Pereval.objects.all()
+
+
+class PerevalDetailView(generics.RetrieveUpdateDestroyAPIView):
+    serializer_class = PerevalDetailSerializer
+    queryset = Pereval.objects.all()

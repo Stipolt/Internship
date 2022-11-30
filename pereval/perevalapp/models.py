@@ -23,12 +23,12 @@ class Coords(models.Model):
 
 class Level(models.Model):
     LEVEL_CHOICES = [
-        ('1А', '1А'),
-        ('1Б', '1Б'),
-        ('2А', '2А'),
-        ('2Б', '2Б'),
-        ('3А', '3А'),
-        ('3Б', '3Б'),
+        (1, '1А'),
+        (2, '1Б'),
+        (3, '2А'),
+        (4, '2Б'),
+        (5, '3А'),
+        (6, '3Б'),
     ]
     winter = models.CharField(max_length=2, choices=LEVEL_CHOICES, blank=True)
     summer = models.CharField(max_length=2, choices=LEVEL_CHOICES, blank=True)
