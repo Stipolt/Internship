@@ -17,12 +17,16 @@ class Image(models.Model):
     title = models.CharField(max_length=256, null=False)
     image = models.ImageField("Image", upload_to='media/')
 
+    def __str__(self):
+        return f'{self.title} {self.image}'
+
 
 class Coords(models.Model):
     latitude = models.FloatField(null=False, blank=False)
     longitude = models.FloatField(null=False, blank=False)
     height = models.IntegerField(null=False, blank=False)
 
+    @property
     def __str__(self):
         return f'{self.latitude} {self.longitude} {self.height}'
 
@@ -46,7 +50,7 @@ class Pereval(models.Model):
         (5, '3А'),
         (6, '3Б'),
     )
-    image = models.ManyToManyField(Image, through='PerevalImages')
+    image = models.ManyToManyField('Image', related_name='images', through='PerevalImage')
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     coord_id = models.ForeignKey(Coords, on_delete=models.CASCADE)
     area = models.ManyToManyField(Area, through='PerevalArea')
@@ -62,7 +66,7 @@ class Pereval(models.Model):
     level_autumn = models.CharField(max_length=2, choices=LEVEL_CHOICES, default="", blank=True)
 
 
-class PerevalImages(models.Model):
+class PerevalImage(models.Model):
     pereval = models.ForeignKey(Pereval, on_delete=models.CASCADE)
     images = models.ForeignKey(Image, on_delete=models.CASCADE)
 

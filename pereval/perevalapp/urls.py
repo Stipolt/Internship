@@ -4,7 +4,7 @@ from rest_framework import routers
 from .views import *
 
 urlpatterns = [
-    path('pereval/create', PerevalCreateView.as_view()),
-    path('all/', PerevalListView.as_view()),
-    path('pereval/detail/<int:pk>/', PerevalDetailView.as_view()),
+    path('submitData/create', PerevalCreateView.as_view()), # view создания
+    path('submitData/', PerevalListView.as_view()),  # view всех объектов GET req
+    path('submitData/<int:pk>/', PerevalDetailView.as_view()),  # view объекта GET, PATCH & PUT req
 ]

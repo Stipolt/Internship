@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import User, Pereval, Image, PerevalImages, Area, Coords, PerevalArea
+from .models import User, Pereval, Image, PerevalImage, Area, Coords, PerevalArea
 
 # Register your models here.
 admin.site.register(User)
@@ -8,4 +8,4 @@ admin.site.register(Image)
 admin.site.register(Area)
 admin.site.register(Coords)
 admin.site.register(PerevalArea)
-admin.site.register(PerevalImages)
+admin.site.register(PerevalImage)

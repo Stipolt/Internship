@@ -1,6 +1,6 @@
 from django.contrib.auth.models import User, Group
 from rest_framework import serializers
-from .models import Pereval, Image, Area, User
+from .models import Pereval, Image, Area, User, Coords
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -21,17 +21,27 @@ class AreaSerializer(serializers.ModelSerializer):
         fields = "__all__"
 
 
+class CoordSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Coords
+        fields = "__all__"
+
+
 class PerevalListSerializer(serializers.ModelSerializer):
     class Meta:
         model = Pereval
         fields = ('id', 'title', 'user', 'coord_id')
 
 
+# сделал так + во view , вместо вложенных def get/post/put  (simple is better than complex & flat is better than nested)
 class PerevalDetailSerializer(serializers.ModelSerializer):
-    image = serializers.SlugRelatedField(slug_field="title", read_only=True,  many=True)
-    area = serializers.SlugRelatedField(slug_field="title", read_only=True, many=True)
-    coords = serializers.SlugRelatedField(slug_field=f'latitude.longitude height', read_only=True)
+    image = ImageSerializer(read_only=False, many=True)
+    # image = serializers.SlugRelatedField(slug_field="title", read_only=True,  many=True)
+    area = AreaSerializer(read_only=False, many=True)
+    coord_id = CoordSerializer(read_only=False)
+    user = UserSerializer(read_only=False)
 
     class Meta:
         model = Pereval
         fields = '__all__'
+
