@@ -36,10 +36,9 @@ class PerevalListSerializer(serializers.ModelSerializer):
 # сделал так + во view , вместо вложенных def get/post/put  (simple is better than complex & flat is better than nested)
 class PerevalDetailSerializer(serializers.ModelSerializer):
     image = ImageSerializer(read_only=False, many=True)
-    # image = serializers.SlugRelatedField(slug_field="title", read_only=True,  many=True)
     area = AreaSerializer(read_only=False, many=True)
     coord_id = CoordSerializer(read_only=False)
-    user = UserSerializer(read_only=False)
+    user = UserSerializer(read_only=True)
 
     class Meta:
         model = Pereval
